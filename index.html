@@ -5,37 +5,255 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hackathon Registration</title>
   <style>
-    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f2f2f2; }
-    .container { background: #fff; padding: 30px; width: 400px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    h2 { text-align: center; }
-    input { width: 100%; padding: 10px; margin: 8px 0; border-radius: 6px; border: 1px solid #ccc; font-size: 15px; }
-    button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
-    #msg { margin-top: 15px; text-align: center; font-weight: bold; }
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Sticky Header Styles */
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-family: "Anek Malayalam";
+      font-style: normal;
+    }
+
+    /* Container for the form */
+    .container {
+      background: #fff;
+      padding: 40px;
+      width: 450px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 48px;
+    font-family: "Anek Malayalam";
+    font-style: normal;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: #ff4d4d;
+      font-size: 14px;
+      text-align: left;
+      margin-top: 5px;
+    }
+
+    #msg {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    /* Padding for content so it doesn't overlap with the header */
+    .main-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgb(9, 108, 143);
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Hackathon Registration</h2>
-    <form id="regForm" action="https://script.google.com/macros/s/AKfycbwOp3vrIpheGKEvsv57EnjVeHlIRBBTfGXkjn3Q5g8tqAoF-Qhu8MwPlOxcfC9lRSyGNQ/exec" method="POST" target="hidden_iframe">
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="text" name="college" placeholder="College / Organization" required />
-      <button type="submit">Register</button>
-    </form>
-    <div id="msg"></div>
+  <!-- Sticky Header -->
+  <header>
+    Hackathon Registration
+  </header>
+
+  <div class="main-content">
+    <div class="container">
+      <h2>Register for the Hackathon</h2>
+      <form id="regForm" action="https://script.google.com/macros/s/AKfycbwOp3vrIpheGKEvsv57EnjVeHlIRBBTfGXkjn3Q5g8tqAoF-Qhu8MwPlOxcfC9lRSyGNQ/exec" method="POST" target="hidden_iframe">
+        
+        <!-- Name Field -->
+        <div class="form-group">
+          <input type="text" name="name" id="name" placeholder="Full Name" required />
+          <div id="nameError" class="error"></div>
+        </div>
+        
+        <!-- Email Field -->
+        <div class="form-group">
+          <input type="email" name="email" id="email" placeholder="Email (Gmail Only)" required />
+          <div id="emailError" class="error"></div>
+        </div>
+        
+        <!-- College Field -->
+        <div class="form-group">
+          <input type="text" name="college" id="college" placeholder="College / Organization" required />
+          <div id="collegeError" class="error"></div>
+        </div>
+
+        <!-- Age Field -->
+        <div class="form-group">
+          <input type="number" name="age" id="age" placeholder="Age" min="16" max="100" required />
+          <div id="ageError" class="error"></div>
+        </div>
+
+        <!-- Phone Number Field -->
+        <div class="form-group">
+          <input type="tel" name="phone" id="phone" placeholder="Phone Number" required />
+          <div id="phoneError" class="error"></div>
+        </div>
+
+        <!-- Gender Field -->
+        <div class="form-group">
+          <select name="gender" id="gender" required>
+            <option value="" disabled selected>Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <div id="genderError" class="error"></div>
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-group">
+          <textarea name="address" id="address" placeholder="Address" rows="3" required></textarea>
+          <div id="addressError" class="error"></div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Register</button>
+      </form>
+
+      <div id="msg"></div>
+    </div>
   </div>
 
   <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <script>
     const msgDiv = document.getElementById("msg");
+    const regForm = document.getElementById("regForm");
+
+    // Function to validate the name field (no numbers allowed)
+    function validateName(name) {
+      const errorDiv = document.getElementById("nameError");
+      if (/\d/.test(name)) {
+        errorDiv.textContent = "Name cannot contain numbers!";
+        return false;
+      }
+      errorDiv.textContent = "";
+      return true;
+    }
+
+    // Function to validate Gmail format
+    function validateEmail(email) {
+      const errorDiv = document.getElementById("emailError");
+      const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      if (!gmailPattern.test(email)) {
+        errorDiv.textContent = "Please enter a valid Gmail address!";
+        return false;
+      }
+      errorDiv.textContent = "";
+      return true;
+    }
+
+    // Function to validate age (16-100)
+    function validateAge(age) {
+      const errorDiv = document.getElementById("ageError");
+      if (age < 16 || age > 100) {
+        errorDiv.textContent = "Age must be between 16 and 100.";
+        return false;
+      }
+      errorDiv.textContent = "";
+      return true;
+    }
+
+    // Function to validate phone number format
+    function validatePhone(phone) {
+      const errorDiv = document.getElementById("phoneError");
+      const phonePattern = /^[+][0-9]{1,3}[ ]?[0-9]{1,4}[ ]?[0-9]{3,4}[ ]?[0-9]{3,4}$/;
+      if (!phonePattern.test(phone)) {
+        errorDiv.textContent = "Please enter a valid phone number (e.g., +1 123 456 7890).";
+        return false;
+      }
+      errorDiv.textContent = "";
+      return true;
+    }
+
+    // Function to validate required fields (gender, address)
+    function validateRequiredFields(gender, address) {
+      let isValid = true;
+      const genderError = document.getElementById("genderError");
+      const addressError = document.getElementById("addressError");
+
+      if (!gender) {
+        genderError.textContent = "Gender is required!";
+        isValid = false;
+      } else {
+        genderError.textContent = "";
+      }
+
+      if (!address.trim()) {
+        addressError.textContent = "Address is required!";
+        isValid = false;
+      } else {
+        addressError.textContent = "";
+      }
+
+      return isValid;
+    }
 
     // Listen for messages from the hidden iframe
     window.addEventListener("message", function(event) {
       const data = event.data;
       if (data.status === "success") {
         alert(`Registration Successful!\nYour Registration ID: ${data.registrationId}`);
-        document.getElementById("regForm").reset();
+        regForm.reset();
         msgDiv.textContent = "";
       } else {
         alert(`Error: ${data.message}`);
@@ -43,9 +261,31 @@
       }
     });
 
-    // Show submitting message
-    document.getElementById("regForm").addEventListener("submit", function() {
+    // Show submitting message and perform validations
+    regForm.addEventListener("submit", function(event) {
+      event.preventDefault();  // Prevent form submission
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const gender = document.getElementById("gender").value;
+      const address = document.getElementById("address").value.trim();
+
       msgDiv.textContent = "Submitting...";
+
+      // Validate fields
+      const isNameValid = validateName(name);
+      const isEmailValid = validateEmail(email);
+      const isAgeValid = validateAge(age);
+      const isPhoneValid = validatePhone(phone);
+      const areFieldsValid = validateRequiredFields(gender, address);
+
+      if (isNameValid && isEmailValid && isAgeValid && isPhoneValid && areFieldsValid) {
+        regForm.submit(); // Submit the form if all validations pass
+      } else {
+        msgDiv.textContent = "";
+      }
     });
   </script>
 </body>
